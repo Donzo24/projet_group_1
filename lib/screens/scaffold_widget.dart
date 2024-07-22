@@ -30,19 +30,19 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
     return Scaffold(
       drawer: Drawer(
         child: Padding(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             top: 50
           ),
           child: Column(
             children: [
                
               Padding(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: Container(
                   height: 100,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
+                    image: const DecorationImage(
                       fit: BoxFit.cover,
                       image: NetworkImage(
                         "https://images.unsplash.com/photo-1706430263184-c1f9ac844a54?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -52,12 +52,12 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
                 ),
               ),
 
-              ListTile(
+              const ListTile(
                 title: Text("Profil"),
                 leading: Icon(Icons.person),
                 trailing: Icon(Icons.chevron_right),
               ),
-              ListTile(
+              const ListTile(
                 title: Text("Profil"),
                 leading: Icon(Icons.person),
                 trailing: Icon(Icons.chevron_right),
@@ -70,15 +70,15 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
         // leading: Icon(Icons.sort),
         backgroundColor: Colors.blueGrey,
         centerTitle: true,
-        title: Text("Foot224"),
+        title: const Text("Foot224"),
         actions: [
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(
               right: 10
             ),
             child: Icon(Icons.notifications_outlined),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(
               right: 10
             ),
@@ -99,19 +99,19 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
         unselectedItemColor: Colors.red,
         items: [
 
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
             label: "Home"
           ),
 
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.feed_outlined),
             label: "Feed"
           )
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add_outlined),
+        child: const Icon(Icons.add_outlined),
         backgroundColor: Colors.orange,
         onPressed: () {
 
@@ -123,7 +123,7 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
           createFirstPage(),
           Container(
             height: 200,
-            child: Text("Page 2"),
+            child: const Text("Page 2"),
           ),
         ],
       ),
@@ -132,12 +132,12 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
 
   Widget createFirstPage() {
     return Padding(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
+            const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -166,15 +166,61 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
               ],
             ),
             Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Titre"),
+                  const Text("Titre"),
                   Row(
                     children: [
-                      Padding(
-                        padding: EdgeInsets.all(10),
+                        createBox(
+                          image: "https://static.vecteezy.com/system/resources/previews/021/286/390/original/aeroplane-airplane-icon-on-transparent-background-free-png.png", 
+                          text: "texte"
+                        ),
+                        createBox(
+                          image: "https://static.vecteezy.com/system/resources/previews/021/286/390/original/aeroplane-airplane-icon-on-transparent-background-free-png.png", 
+                          text: "texte"
+                        )
+                    ],
+                  ),
+
+                  Column(
+                    children: [
+                      Text("HSHS"),
+                      Wrap(
+                        children: [
+                          createBox(
+                            image: "https://static.vecteezy.com/system/resources/previews/021/286/390/original/aeroplane-airplane-icon-on-transparent-background-free-png.png", 
+                            text: "texte"
+                          ),
+                          createBox(
+                            image: "https://static.vecteezy.com/system/resources/previews/021/286/390/original/aeroplane-airplane-icon-on-transparent-background-free-png.png", 
+                            text: "texte"
+                          ),
+                          createBox(
+                            image: "https://static.vecteezy.com/system/resources/previews/021/286/390/original/aeroplane-airplane-icon-on-transparent-background-free-png.png", 
+                            text: "texte"
+                          ),
+                          createBox(
+                            image: "https://static.vecteezy.com/system/resources/previews/021/286/390/original/aeroplane-airplane-icon-on-transparent-background-free-png.png", 
+                            text: "texte"
+                          )
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget createBox({required String image, required String text}) {
+    return Padding(
+                        padding: const EdgeInsets.all(5),
                         child: Container(
                           height: 100,
                           width: 100,
@@ -193,26 +239,17 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
                                     color: Colors.white,
                                     image: DecorationImage(
                                       image: NetworkImage(
-                                        "https://static.vecteezy.com/system/resources/previews/021/286/390/original/aeroplane-airplane-icon-on-transparent-background-free-png.png"
+                                        image
                                       )
                                     ),
                                     borderRadius: BorderRadius.circular(10)
                                   ),
                                 ),
-                                Text("Texte")
+                                Text(text)
                               ],
                             ),
                           ),
                         ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
+                      );
   }
 }
