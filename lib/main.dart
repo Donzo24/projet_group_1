@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/route_manager.dart';
 import 'package:projet_module_2_2/screens/button.dart';
 import 'package:projet_module_2_2/screens/complex_widget.dart';
 import 'package:projet_module_2_2/screens/home_page.dart';
@@ -13,8 +15,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: ScaffoldWidget()
+    return GetMaterialApp(
+      navigatorKey: Get.key,
+      home: const ScaffoldWidget()
     );
   }
 }

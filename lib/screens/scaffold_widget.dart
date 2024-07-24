@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ScaffoldWidget extends StatefulWidget {
   const ScaffoldWidget({super.key});
@@ -191,19 +192,19 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
                         children: [
                           createBox(
                             image: "https://static.vecteezy.com/system/resources/previews/021/286/390/original/aeroplane-airplane-icon-on-transparent-background-free-png.png", 
-                            text: "texte"
+                            text: "texte 1"
                           ),
                           createBox(
                             image: "https://static.vecteezy.com/system/resources/previews/021/286/390/original/aeroplane-airplane-icon-on-transparent-background-free-png.png", 
-                            text: "texte"
+                            text: "texte 2"
                           ),
                           createBox(
                             image: "https://static.vecteezy.com/system/resources/previews/021/286/390/original/aeroplane-airplane-icon-on-transparent-background-free-png.png", 
-                            text: "texte"
+                            text: "texte 3"
                           ),
                           createBox(
                             image: "https://static.vecteezy.com/system/resources/previews/021/286/390/original/aeroplane-airplane-icon-on-transparent-background-free-png.png", 
-                            text: "texte"
+                            text: "texte 4"
                           )
                         ],
                       )
@@ -219,7 +220,11 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
   }
 
   Widget createBox({required String image, required String text}) {
-    return Padding(
+    return GestureDetector(
+      onTap: () {
+        openBottomSheet(image: image, text: text);
+      },
+      child: Padding(
                         padding: const EdgeInsets.all(5),
                         child: Container(
                           height: 100,
@@ -250,6 +255,26 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
                             ),
                           ),
                         ),
-                      );
+                      ),
+    );
+  }
+
+  void openBottomSheet({required String image, required String text}) {
+
+    // Get.back() Fermer un bottomsheet
+
+    Get.bottomSheet(
+      Container(
+        height: 300,
+        width: double.infinity,
+        color: Colors.white,
+        child: Column(
+          children: [
+            Text(text),
+            Image.network(image)
+          ],
+        ),
+      )
+    );
   }
 }
