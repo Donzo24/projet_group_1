@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:projet_module_2_2/screens/profil.dart';
 
 class ScaffoldWidget extends StatefulWidget {
   const ScaffoldWidget({super.key});
@@ -53,14 +54,28 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
                 ),
               ),
 
-              const ListTile(
+              ListTile(
                 title: Text("Profil"),
                 leading: Icon(Icons.person),
                 trailing: Icon(Icons.chevron_right),
+                onTap: () {
+
+
+                  // Get.to(() {
+                  //   return ProfilPage();
+                  // });
+
+                  Get.to(() => ProfilPage(prenom: "Mohamed", nom: "Marah",), transition: Transition.upToDown);
+
+                  // Get.off(() => ProfilPage());
+
+                  // Get.offAll(() => ProfilPage());
+
+                },
               ),
               const ListTile(
-                title: Text("Profil"),
-                leading: Icon(Icons.person),
+                title: Text("Parametres"),
+                leading: Icon(Icons.settings),
                 trailing: Icon(Icons.chevron_right),
               )
             ],
@@ -264,17 +279,45 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
     // Get.back() Fermer un bottomsheet
 
     Get.bottomSheet(
-      Container(
-        height: 300,
-        width: double.infinity,
-        color: Colors.white,
-        child: Column(
-          children: [
-            Text(text),
-            Image.network(image)
-          ],
-        ),
+
+      Stack(
+        children: [
+          Container(
+            height: 400,
+            width: double.infinity,
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 350,
+              width: double.infinity,
+              color: Colors.white,
+              child: Column(
+                children: [
+                  Text(text),
+                  // Image.network(image)
+                ],
+              ),
+            ),
+          ),
+          Container(
+            height: 120,
+            margin: EdgeInsets.all(10),
+            width: 120,
+            decoration: BoxDecoration(
+              color: Colors.red,
+              borderRadius: BorderRadius.circular(10)
+            ),
+            child: Column(
+              children: [
+                // Text(text),
+                Image.network(image)
+              ],
+            ),
+          )
+        ],
       )
+      
     );
   }
 }
