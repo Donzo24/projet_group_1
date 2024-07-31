@@ -65,7 +65,7 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
                   //   return ProfilPage();
                   // });
 
-                  Get.to(() => ProfilPage(prenom: "Mohamed", nom: "Marah",), transition: Transition.upToDown);
+                  //Get.to(() => ProfilPage(prenom: "Mohamed", nom: "Marah",), transition: Transition.upToDown);
 
                   // Get.off(() => ProfilPage());
 
@@ -94,11 +94,25 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
             ),
             child: Icon(Icons.notifications_outlined),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(
               right: 10
             ),
-            child: Icon(Icons.person_outline),
+            child: IconButton(
+              icon: Icon(Icons.person_outline),
+              onPressed: () {
+                //Premiere navigation: Aller-retour
+                // Get.to(() {
+                //   return ProfilPage();
+                // });
+
+                Get.to(() => ProfilPage(prenom: "Sira", nom: "Donzo"), transition: Transition.leftToRight);
+
+                // Get.off(() => ProfilPage());
+
+                // Get.offAll(() => ProfilPage());
+              }
+            ),
           )
         ],
       ),
@@ -237,6 +251,9 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
   Widget createBox({required String image, required String text}) {
     return GestureDetector(
       onTap: () {
+        
+      },
+      onLongPress: () {
         openBottomSheet(image: image, text: text);
       },
       child: Padding(
