@@ -48,7 +48,7 @@ class _ProfilPageState extends State<ProfilPage>
                       color: Colors.orange
                     ),
                     prefixIcon: Icon(Icons.person),
-                    hintText: "Entrer votre nom ici",
+                    hintText: "Entrer votre nom",
                     border: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.red
