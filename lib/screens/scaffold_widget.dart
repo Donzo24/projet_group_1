@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:projet_module_2_2/models/utilisateur.dart';
 import 'package:projet_module_2_2/screens/profil.dart';
 
 class ScaffoldWidget extends StatefulWidget {
@@ -15,10 +17,23 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
 
   int currentIndex = 0;
 
+  List<Utilisateur> utilisateurs = [];
+
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
+
+    readFile();
+
+  }
+
+  Future<void> readFile() async {
+    String json = await rootBundle.loadString("assets/user.json");
+
+    utilisateurs = getUsers(json);
+
+    setState(() {});
   }
 
   @override
@@ -29,6 +44,7 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       drawer: Drawer(
         child: Padding(
@@ -147,16 +163,19 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
 
         }
       ),
-      body: IndexedStack(
-        index: currentIndex,
-        children: [
-          createFirstPage(),
-          Container(
-            height: 200,
-            child: const Text("Page 2"),
-          ),
-        ],
-      ),
+      body: ListView(
+        children: List.generate(utilisateurs.length, (index) {
+
+          Utilisateur user = utilisateurs[index];
+
+          return Card(
+            child: ListTile(
+              title: Text("${user.prenom} ${user.nom}"),
+              subtitle: Text(user.email),
+            ),
+          );
+        })
+      )
     );
   }
 

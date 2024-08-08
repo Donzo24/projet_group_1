@@ -1,0 +1,142 @@
+[
+    {
+        "id": 1,
+        "nom": "Diop",
+        "prenom": "Amadou",
+        "email": "amadou.diop@example.com",
+        "age": 30
+    },
+    {
+        "id": 2,
+        "nom": "Traoré",
+        "prenom": "Awa",
+        "email": "awa.traore@example.com",
+        "age": 25
+    },
+    {
+        "id": 3,
+        "nom": "Ouattara",
+        "prenom": "Moussa",
+        "email": "moussa.ouattara@example.com",
+        "age": 28
+    },
+    {
+        "id": 4,
+        "nom": "N'Diaye",
+        "prenom": "Fatou",
+        "email": "fatou.ndiaye@example.com",
+        "age": 32
+    },
+    {
+        "id": 5,
+        "nom": "Koné",
+        "prenom": "Ibrahim",
+        "email": "ibrahim.kone@example.com",
+        "age": 27
+    },
+    {
+        "id": 6,
+        "nom": "Coulibaly",
+        "prenom": "Aminata",
+        "email": "aminata.coulibaly@example.com",
+        "age": 29
+    },
+    {
+        "id": 7,
+        "nom": "Cissé",
+        "prenom": "Ali",
+        "email": "ali.cisse@example.com",
+        "age": 31
+    },
+    {
+        "id": 8,
+        "nom": "Demba",
+        "prenom": "Seydou",
+        "email": "seydou.demba@example.com",
+        "age": 24
+    },
+    {
+        "id": 9,
+        "nom": "Fofana",
+        "prenom": "Kadiatou",
+        "email": "kadiatou.fofana@example.com",
+        "age": 26
+    },
+    {
+        "id": 10,
+        "nom": "Touré",
+        "prenom": "Youssouf",
+        "email": "youssouf.toure@example.com",
+        "age": 33
+    },
+    {
+        "id": 11,
+        "nom": "Diallo",
+        "prenom": "Mariam",
+        "email": "mariam.diallo@example.com",
+        "age": 22
+    },
+    {
+        "id": 12,
+        "nom": "Keita",
+        "prenom": "Abdoulaye",
+        "email": "abdoulaye.keita@example.com",
+        "age": 35
+    },
+    {
+        "id": 13,
+        "nom": "Koulibaly",
+        "prenom": "Salif",
+        "email": "salif.koulibaly@example.com",
+        "age": 29
+    },
+    {
+        "id": 14,
+        "nom": "Sangaré",
+        "prenom": "Assa",
+        "email": "assa.sangare@example.com",
+        "age": 28
+    },
+    {
+        "id": 15,
+        "nom": "Kamara",
+        "prenom": "Mahamadou",
+        "email": "mahamadou.kamara@example.com",
+        "age": 34
+    },
+    {
+        "id": 16,
+        "nom": "Sarr",
+        "prenom": "Khadija",
+        "email": "khadija.sarr@example.com",
+        "age": 30
+    },
+    {
+        "id": 17,
+        "nom": "Bâ",
+        "prenom": "Cheikh",
+        "email": "cheikh.ba@example.com",
+        "age": 27
+    },
+    {
+        "id": 18,
+        "nom": "Sylla",
+        "prenom": "Adama",
+        "email": "adama.sylla@example.com",
+        "age": 26
+    },
+    {
+        "id": 19,
+        "nom": "Guèye",
+        "prenom": "Aissata",
+        "email": "aissata.gueye@example.com",
+        "age": 31
+    },
+    {
+        "id": 20,
+        "nom": "Barry",
+        "prenom": "Oumar",
+        "email": "oumar.barry@example.com",
+        "age": 29
+    }
+]
