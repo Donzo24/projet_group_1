@@ -421,6 +421,26 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
               child: FormBuilderTextField(
                 name: "name",
                 initialValue: phone.name,
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      color: Colors.green
+                    )
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      color: Colors.yellow
+                    )
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      color: Colors.red
+                    )
+                  )
+                ),
               ),
             )
           ],
