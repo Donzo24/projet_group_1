@@ -1,8 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get/get.dart';
+import 'package:projet_module_2_2/models/phone.dart';
+import 'package:projet_module_2_2/models/post.dart';
 import 'package:projet_module_2_2/models/utilisateur.dart';
 import 'package:projet_module_2_2/screens/profil.dart';
+import 'package:http/http.dart' as http;
 
 class ScaffoldWidget extends StatefulWidget {
   const ScaffoldWidget({super.key});
@@ -18,6 +24,7 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
   int currentIndex = 0;
 
   List<Utilisateur> utilisateurs = [];
+  List<Post> post = [];
 
   @override
   void initState() {
@@ -29,9 +36,11 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
   }
 
   Future<void> readFile() async {
-    String json = await rootBundle.loadString("assets/user.json");
+    String json = await rootBundle.loadString("assets/post.json");
 
-    utilisateurs = getUsers(json);
+    // utilisateurs = getUsers(json);
+
+    post = getPosts(jsonDecode(json));
 
     setState(() {});
   }
@@ -163,18 +172,61 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
 
         }
       ),
-      body: ListView(
-        children: List.generate(utilisateurs.length, (index) {
+      body: FutureBuilder(
+        future: http.get(Uri.parse("https://api.restful-api.dev/objects")),
+        builder: (context, snapshot) {
 
-          Utilisateur user = utilisateurs[index];
+          if(snapshot.connectionState == ConnectionState.done) {
+            if(snapshot.hasData) {
+              if(snapshot.data!.statusCode == 200) {
+                var data = snapshot.data!.body;
+                List<dynamic> items = jsonDecode(data);
 
-          return Card(
-            child: ListTile(
-              title: Text("${user.prenom} ${user.nom}"),
-              subtitle: Text(user.email),
-            ),
-          );
-        })
+                List<Phone> phones = [];
+
+                items.forEach((item) {
+                  phones.add(Phone.fromJson(item));
+                });
+
+                return ListView(
+                  children: List.generate(items.length, (index) {
+                    Phone phone = phones[index];
+                    return Card(
+                      child: ListTile(
+                        title: Text(phone.name),
+                        trailing: IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: () {
+                            editPhone(phone: phone);
+                          },
+                        ),
+                      ),
+                    );
+                  }),
+                );
+
+
+              }
+            }
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if(snapshot.hasError) {
+            return Center(
+              child: ElevatedButton(
+                child: Text("Ressayer"),
+                onPressed: () {
+                  
+                },
+              ),
+            );
+          }
+          
+          // print(snapshot.error);
+          return SizedBox();
+
+        },
       )
     );
   }
@@ -354,6 +406,26 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
         ],
       )
       
+    );
+  }
+  
+  void editPhone({required Phone phone}) {
+    print(phone.name);
+    Get.bottomSheet(
+      Container(
+        color: Colors.white,
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: FormBuilderTextField(
+                name: "name",
+                initialValue: phone.name,
+              ),
+            )
+          ],
+        ),
+      )
     );
   }
 }

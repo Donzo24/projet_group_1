@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "titre": "Introduction",
+    "contenu": "Présentation du sujet en 15 minutes."
+  },
+  {
+    "id": 2,
+    "titre": "Contexte",
+    "contenu": "Explication du contexte en 15 minutes."
+  },
+  {
+    "id": 3,
+    "titre": "Développement",
+    "contenu": "Discussion détaillée du sujet principal en 15 minutes."
+  },
+  {
+    "id": 4,
+    "titre": "Conclusion",
+    "contenu": "Résumé et conclusion en 15 minutes."
+  }
+]
