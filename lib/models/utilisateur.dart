@@ -7,18 +7,22 @@ class Utilisateur {
   int id;
   String nom;
   String prenom;
-  String email;
-  int age;
+  String? email;
+  String? avatar;
 
-  Utilisateur(this.id, this.age, this.prenom, this.email, this.nom);
+  Utilisateur(this.id, this.nom, this.prenom, this.email, {this.avatar});
 
   factory Utilisateur.fromJson(json) {
+
+    if(json['id'] is String) {
+      json['id'] = int.parse(json['id']);
+    }
     return Utilisateur(
       json['id'], 
-      json['age'], 
-      json['prenom'], 
+      json['last_name'],
+      json['first_name'], 
       json['email'], 
-      json['nom']
+      avatar: json['avatar']
     );
   }
 

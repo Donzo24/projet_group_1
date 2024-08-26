@@ -31,9 +31,28 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
     super.initState();
     _controller = AnimationController(vsync: this);
 
+    getUserListFromApi();
+
     readFile();
 
   }
+
+  void getUserListFromApi() async {
+    http.Response response = await http.get(Uri.parse("https://reqres.in/api/users?page=1"));
+
+    if(response.statusCode == 200) {
+
+      List users = jsonDecode(response.body)['data'];
+
+      setState(() {
+        utilisateurs = users.map((user) {
+          return Utilisateur.fromJson(user);
+        }).toList();
+      });
+
+    }
+  }
+
 
   Future<void> readFile() async {
     String json = await rootBundle.loadString("assets/post.json");
@@ -53,7 +72,6 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       drawer: Drawer(
         child: Padding(
@@ -168,65 +186,25 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add_outlined),
         backgroundColor: Colors.orange,
-        onPressed: () {
-
-        }
+        onPressed: () => addUser()
       ),
-      body: FutureBuilder(
-        future: http.get(Uri.parse("https://api.restful-api.dev/objects")),
-        builder: (context, snapshot) {
+      body: ListView(
+        children: List.generate(utilisateurs.length, (index) {
 
-          if(snapshot.connectionState == ConnectionState.done) {
-            if(snapshot.hasData) {
-              if(snapshot.data!.statusCode == 200) {
-                var data = snapshot.data!.body;
-                List<dynamic> items = jsonDecode(data);
+          var user = utilisateurs[index];
 
-                List<Phone> phones = [];
-
-                items.forEach((item) {
-                  phones.add(Phone.fromJson(item));
-                });
-
-                return ListView(
-                  children: List.generate(items.length, (index) {
-                    Phone phone = phones[index];
-                    return Card(
-                      child: ListTile(
-                        title: Text(phone.name),
-                        trailing: IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: () {
-                            editPhone(phone: phone);
-                          },
-                        ),
-                      ),
-                    );
-                  }),
-                );
-
-
-              }
-            }
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if(snapshot.hasError) {
-            return Center(
-              child: ElevatedButton(
-                child: Text("Ressayer"),
-                onPressed: () {
-                  
-                },
-              ),
-            );
-          }
-          
-          // print(snapshot.error);
-          return SizedBox();
-
-        },
+          return ListTile(
+            title: Text("${user.prenom} ${user.nom}"),
+            leading: user.avatar != null ? CircleAvatar(
+              backgroundImage: NetworkImage(user.avatar!),
+              radius: 24,
+            ):null,
+            trailing: IconButton(
+              icon: Icon(Icons.edit_outlined),
+              onPressed: () => true,
+            ),
+          );
+        }),
       )
     );
   }
@@ -410,7 +388,6 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
   }
   
   void editPhone({required Phone phone}) {
-    print(phone.name);
     Get.bottomSheet(
       Container(
         color: Colors.white,
@@ -442,9 +419,114 @@ class _ScaffoldWidgetState extends State<ScaffoldWidget>
                   )
                 ),
               ),
-            )
+            ),
+
+            
           ],
         ),
+      )
+    );
+  }
+  
+  addUser() async {
+
+    final _formKey = GlobalKey<FormBuilderState>();
+
+    await Get.bottomSheet(
+      Container(
+        height: MediaQuery.of(context).size.height/1.5,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Colors.white
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(10),
+          child: FormBuilder(
+            key: _formKey,
+            child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: FormBuilderTextField(
+                  name: "first_name",
+                  decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors.black
+                      )
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors.black
+                      )
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors.black
+                      )
+                    )
+                  ),
+                ),
+              ),
+
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: FormBuilderTextField(
+                  name: "last_name",
+                  decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors.black
+                      )
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors.black
+                      )
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors.black
+                      )
+                    )
+                  ),
+                ),
+              ),
+
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: ElevatedButton(
+                  child: Text("Enregistrer"),
+                  onPressed: () async {
+                    if(_formKey.currentState!.saveAndValidate()) {
+
+                      print(_formKey.currentState!.value);
+
+                      http.Response response = await http.post(Uri.parse("https://reqres.in/api/users"), body: _formKey.currentState!.value);
+
+                      if(response.statusCode == 201) {
+                        print("Eelemet enregistere");
+                        Map json = jsonDecode(response.body);
+
+                        utilisateurs.add(Utilisateur.fromJson(json));
+                        setState(() {});
+                        
+                      }
+
+                    }
+                  },
+                ),
+              )
+            ],
+          ),
+          )
+        )
       )
     );
   }
